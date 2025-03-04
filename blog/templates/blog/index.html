@@ -1,0 +1,176 @@
+{% load static %}
+
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Posts do Dia</title>
+    <link rel="stylesheet" href="{% static 'blog/css/style.css' %}">
+</head>
+<body>
+
+    <nav>
+        <ul>
+            <li>
+                <a href="/">Home</a>
+                <a href="/categorys/">Categorias</a>
+                <a href="trending/">Mais votados</a>
+                <a href="logout">Logout</a>
+
+            </li>
+
+        </ul>
+    </nav>
+
+    <div class="create-post">
+        <h1>Faça um novo post</h1>
+
+        <!-- Formulário para criar um post -->
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}  <!-- Exibe o formulário de criação de post -->
+            <button type="submit" name="create_post">Criar Post</button>
+        </form>
+
+        <div class="create_category-div">
+            <h3>Criar uma nova categoria</h3>
+            <p>Apenas usuários do pau grosso podem criar categorias</p>
+            <form method="POST">
+                {% csrf_token %}
+                {{ category_form.as_p }}  <!-- Exibe o formulário de criação de categoria -->
+                <button type="submit" name="create_category">Criar Categoria</button>  <!-- Botão para criar categoria -->
+            </form>
+        </div>
+    </div>
+
+
+
+
+        <!-- Exibindo mensagens de erro com JavaScript -->
+    {% if messages %}
+        <script>
+            {% for message in messages %}
+                alert("{{ message }}");  // Exibe a mensagem como um alert no navegador
+            {% endfor %}
+        </script>
+    {% endif %}
+
+    <h1>Posts do dia</h1>
+    <p>Olá, {{ user.username }}, estes são os posts do dia!</p>
+
+    <div class="posts-list">
+        {% for post in posts %}
+            <div class="post">
+
+                <div class="post-content">
+                    {% if post.picture %}
+                        <img class="post-picture" src="{{ post.picture.url }}" alt="Imagem do post">
+                    {% endif %}
+                
+                    <div class="post-text">
+                        {% if post.category %}
+                            <a href="{% url 'category_view' category_name=post.category.category_name %}">
+                                Categoria: {{ post.category.category_name }}
+                            </a>
+                        {% endif %}
+                        <h2>{{ post.title }}</h2>
+                        <p>{{ post.content }}</p>
+                
+                        <form class="form-like" action="{% url 'add_like_post' post.id %}" method="POST">
+                            {% csrf_token %}
+                        <div class="comment-react">
+                            <button type="submit" class="like-button {% if user in comment.liked_by.all %}liked{% endif %}">
+                                <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="22"
+                                height="22"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                              >
+                                <path
+                                    d="M19.4626 3.99415C16.7809 2.34923 14.4404 3.01211 13.0344 4.06801C12.4578 4.50096 12.1696 4.71743 12 4.71743C11.8304 4.71743 11.5422 4.50096 10.9656 4.06801C9.55962 3.01211 7.21909 2.34923 4.53744 3.99415C1.01807 6.15294 0.221721 13.2749 8.33953 19.2834C9.88572 20.4278 10.6588 21 12 21C13.3412 21 14.1143 20.4278 15.6605 19.2834C23.7783 13.2749 22.9819 6.15294 19.4626 3.99415Z"
+                                    stroke="#ffffff"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    fill="none"
+                                ></path>
+                              </svg>
+                              <span>{{ post.likes }}</span>
+                            </button>
+                          </div>
+                        </form>                                 
+                        
+                        <small>Publicado dia {{ post.published_at }} por: {{ post.author }}</small>
+                    </div>
+                </div>
+
+                <hr>
+                <div class="comment-content">
+                    <ul class="comments-list" id="comment-list-{{ post.id }}">
+                        {% for comment in post.comments.all %}
+                            <li class="comment-item">
+                                {% if comment.picture %}
+                                    <img class="comment-picture" src="{{ comment.picture.url }}" alt="Imagem do post">
+                                {% endif %}
+
+                                <div class="comment-text">
+                                    <strong>{{ comment.user.username }}</strong> : {{ comment.comment }}
+                                    <small>({{ comment.created_at }})</small>
+                                    <form class="form-like" action="{% url 'add_like_comment' comment.id %}" method="POST">
+                                        {% csrf_token %}
+                                        <div class="comment-react">
+                                            <button type="submit" class="like-button {% if user in comment.liked_by.all %}liked{% endif %}">
+                                                <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                width="22"
+                                                height="22"
+                                                viewBox="0 0 24 24"
+                                                fill="none"
+                                            >
+                                                <path
+                                                d="M19.4626 3.99415C16.7809 2.34923 14.4404 3.01211 13.0344 4.06801C12.4578 4.50096 12.1696 4.71743 12 4.71743C11.8304 4.71743 11.5422 4.50096 10.9656 4.06801C9.55962 3.01211 7.21909 2.34923 4.53744 3.99415C1.01807 6.15294 0.221721 13.2749 8.33953 19.2834C9.88572 20.4278 10.6588 21 12 21C13.3412 21 14.1143 20.4278 15.6605 19.2834C23.7783 13.2749 22.9819 6.15294 19.4626 3.99415Z"
+                                                stroke="#ffffff"
+                                                stroke-width="2"
+                                                stroke-linecap="round"
+                                                fill="none"
+                                                ></path>
+                                            </svg>
+                                            <span>{{ comment.likes }}</span>
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                                <hr>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <form class="form-comment" data-post-id="{{ post.id }}" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <textarea class="comment" name="comment"></textarea>
+                    <input type="file" name="picture" accept="image/*"> <!-- Input para imagem -->
+                    <input type="hidden" class="post_id" value="{{ post.id }}">
+                    <button type="submit">Comentar</button>
+                </form>
+
+                
+
+            </div>
+            <br>
+
+
+        {% empty %}
+            <p>Não há posts ainda!</p>
+        {% endfor %}
+    </div>
+
+    
+
+
+    <script src="{% static 'blog/js/script.js' %}"></script>
+
+    
+
+</body>
+</html>

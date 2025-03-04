@@ -1,0 +1,289 @@
+body{
+
+
+background-color: #1d1d1d;
+color: white;
+
+
+}
+
+nav {
+    background-color: black; /* Cor de fundo mais elegante */
+    padding: 10px 0; /* Espaçamento no topo e na base */
+}
+
+nav ul {
+    list-style: none; /* Remove os marcadores de lista */
+    display: flex; /* Alinha os itens horizontalmente */
+    justify-content: center; /* Centraliza os links */
+    align-items: center; /* Alinha verticalmente */
+    padding: 0;
+    margin: 0;
+}
+
+nav ul li {
+    display: flex;
+    gap: 20px; /* Espaçamento entre os links */
+}
+
+nav ul li a {
+    text-decoration: none; /* Remove sublinhado */
+    color: white; /* Cor do texto */
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px 15px;
+    transition: 0.3s ease-in-out;
+    border-radius: 5px;
+}
+
+nav ul li a:hover {
+    background-color: #444; /* Efeito de hover mais suave */
+    color: #FFD700; /* Cor dourada ao passar o mouse */
+}
+
+
+label[for="id_comment"] {
+    display: none;
+}
+
+
+
+.create-post {
+    color:rgb(255, 255, 255);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    background-color: rgb(0, 0, 0);
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+
+/* Estiliza o formulário */
+.create-post form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 30%; /* Define um tamanho máximo */
+}
+
+.create-post label {
+    display: block; /* Faz o label ocupar a linha toda */
+    margin-bottom: 5px; /* Adiciona um pequeno espaçamento abaixo do label */
+}
+
+/* Estiliza os campos de entrada */
+.create-post input[type="text"],
+.create-post textarea,
+.create-post select {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #ccc;
+    font-size: 12pt;
+}
+
+/* Estiliza o botão */
+.create-post button {
+    background: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    padding: 10px;
+    border: 1px solid rgb(255, 255, 255);
+    border-radius: 5px;
+    font-size: 12pt;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+
+
+.create-post button:hover {
+    background: #000000;
+    color: rgb(255, 255, 255);
+}
+
+/* Estiliza o campo de upload */
+.create-post input[type="file"] {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #ccc;
+    font-size: 12pt;
+    color: black;
+    background: #ffffff;
+
+}
+
+
+
+
+
+.post{
+
+    background-color: black;
+    border-radius: 5px;
+    
+    }
+.post-content {
+    display: flex;  /* Usa flexbox para alinhar os itens lado a lado */
+    align-items: center; /* Alinha verticalmente */
+    gap: 20px; /* Espaçamento entre a imagem e o texto */
+}
+
+.post-picture {
+
+    width: 300px;
+    height: 300px;
+    height: auto; /* Mantém a proporção da imagem */
+    border-radius: 5px; /* Cantos arredondados para um visual mais bonito */
+    
+}
+
+.post-text {
+    flex: 1; /* Faz o texto ocupar o espaço restante */
+}
+
+
+.comment-content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.comment-item {
+    display: flex; /* Alinha a imagem e o texto lado a lado */
+    align-items: center; /* Alinha verticalmente */
+    gap: 15px; /* Espaçamento entre a imagem e o texto */
+    margin-bottom: 10px;
+    border-bottom: 1px solid white;
+    
+
+}
+
+.comment-picture {
+    height: auto;
+    border-radius: 5px;
+    width: 200px;
+    height: 200px; 
+    padding: 10px
+}
+
+.comment-text {
+    flex: 1; /* Faz o texto ocupar o espaço restante */
+    padding: 20px
+}
+
+
+ul {
+    list-style: none;
+    padding: 0; /* Remove o espaçamento padrão */
+    margin: 0;  /* Remove a margem padrão */
+}
+
+
+.comments-list li {
+    list-style: none; /* Remove qualquer estilo de lista */
+    padding: 0; /* Remove o espaçamento padrão */
+
+}
+
+
+
+
+/* Estilizando o botão de like */
+.form-like button {
+    background-color: transparent; /* Remove fundo */
+    border: none; /* Remove borda */
+    cursor: pointer; /* Muda o cursor para indicar clicável */
+    font-size: 20px; /* Aumenta o tamanho do ícone */
+    display: flex;
+    align-items: center;
+    gap: 5px; /* Espaçamento entre o ícone e o número */
+    color: #444; /* Cor inicial */
+    transition: 0.3s ease-in-out;
+}
+
+
+
+
+
+.form-like button span {
+    font-size: 14px; /* Tamanho do contador de likes */
+    font-weight: bold;
+    color: #ffffff; /* Cor mais suave para o contador */
+}
+
+
+.like-button:after {
+    content: "";
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    left: -3px;
+    top: -3px;
+    background: linear-gradient(to bottom right, #3598f5, blue);
+    z-index: 0;
+    transform: scale(0);
+    filter: blur(10px);
+  }
+  
+  .like-button svg {
+    position: relative;
+    z-index: 9;
+  }
+  
+  .comment-react button:hover svg path {
+    fill: #ffffff;
+  }
+
+.like-button.liked svg path {
+    fill: #ffffff;
+}
+.form-comment {
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    margin: 25px auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    color: #ffffff;
+}
+
+.comment {
+    width: 100%;
+    height: 120px;
+    padding: 12px;
+    border: 2px solid #444;
+    border-radius: 5px;
+    font-size: 15px;
+    resize: none;
+    background: #2b2b2b;
+    color: #ffffff;
+    transition: border-color 0.3s;
+}
+
+.comment:focus {
+    border-color: #ffffff;
+    outline: none;
+}
+
+.form-comment button {
+    width: 30%;
+    background: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    padding: 10px;
+    border: 1px solid rgb(255, 255, 255);
+    border-radius: 5px;
+    font-size: 12pt;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.form-comment button:hover {
+    background-color: black;
+    color: white;
+
+
+}
+
+

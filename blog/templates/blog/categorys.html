@@ -1,0 +1,13 @@
+{% for category in categorys %}
+
+<ul>
+
+    <li>
+
+        <a href="{% url 'category_view' category_name=category.category_name %}">{{ category.category_name }}</a>
+
+    </li>
+
+</ul>
+    
+{% endfor %}
