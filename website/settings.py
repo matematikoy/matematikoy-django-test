@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-^xi#^$p&rx$r0x9t-_%+2=o6#_)rk-@b!96^pq377va-ur@$5%
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["matematik.onrender.com"]
+ALLOWED_HOSTS = ["metematik.onrender.com"]
 
 
 # Application definition
